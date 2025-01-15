@@ -1,4 +1,4 @@
-# Trial and Error
+# Trial and Error: A Trial History and Bayesian Approach
 
 We aim to build data pipelines for three separate analyses:
 
