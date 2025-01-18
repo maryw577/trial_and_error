@@ -1,6 +1,6 @@
 # Trial and Error: A Trial History and Bayesian Approach
 
-We aim to build data pipelines for three separate analyses:
+_Our goal_ to build data pipelines for three separate analyses:
 
 ### **1. Individual Session Analysis**
 Create a trial history pipeline to process and analyze data from single experimental sessions.
@@ -13,6 +13,18 @@ Construct a pipeline to aggregate and analyze data across multiple participants,
 
 ---
 
+Onboarding- what you will need!
+
+### **1. Join our Discord channel!!!**
+Construct a pipeline to aggregate and analyze data across multiple participants, identifying consistent patterns and group-level trends in trial history effects.
+
+### **2. Download MATLAB**
+Download the latest version of MATLAB. You get a free version of MATLAB with your VUnet ID!
+
+### **3. Access our onboarding Google Drive folder**
+We will be periodically adding documents to our Google Drive folder for background information on the topic
+
+---
 ## **Steps for Each Analysis**
 
 ### **1. Data Preparation**
