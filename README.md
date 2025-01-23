@@ -19,7 +19,7 @@ Onboarding- what you will need!
 Construct a pipeline to aggregate and analyze data across multiple participants, identifying consistent patterns and group-level trends in trial history effects.
 
 ### **2. Download MATLAB**
-Download the latest version of MATLAB. You get a free version of MATLAB with your VUnet ID!
+Download the latest version of [MATLAB](https://www.mathworks.com/downloads/). You get a free version of MATLAB by signing up with your VU email address!
 
 ### **3. Access our onboarding Google Drive folder**
 We will be periodically adding documents to our Google Drive folder for background information on the topic
