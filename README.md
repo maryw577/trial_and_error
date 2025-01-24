@@ -20,7 +20,7 @@ Welcome to the "Trial and Error" repository! Our goal is to build data pipelines
 ## Onboarding Documentation
 ### Get Started
 
-1. **Join our Discord channel**: Stay updated and collaborate with the team.
+1. **Join our Discord channel**: Stay updated and collaborate with the virtual members.
 2. **Download MATLAB**: [MATLAB Download](https://www.mathworks.com/downloads/) (Free with VU email address).
 3. **Access the onboarding Google Drive folder**: [Google Drive Folder](https://drive.google.com/drive/folders/19-npik6O2sBKtePoqAmUu3XODVIH9Io7) for background information and documents.
 
@@ -33,12 +33,13 @@ Welcome to the "Trial and Error" repository! Our goal is to build data pipelines
 Before installing and using the repository, ensure you have the following:
 
 - MATLAB (latest version)
+- Signal Processing Toolbox in MATLAB
 - Access to the project’s data and resources (details below)
 
-## Installation
+## Installation via VSCode
 1. Clone the repository:
    ```bash
-   git clone https://github.com/username/trial-and-error.git
+   git clone https://github.com/tiesmaaj/trial_and_error.git
    ```
 2. Navigate to the project directory:
    ```bash
@@ -54,19 +55,17 @@ Before installing and using the repository, ensure you have the following:
 Data for the project can be accessed from the following sources:
 
 ### Public Datasets
+- [Google Drive Folder](https://drive.google.com/drive/folders/19-npik6O2sBKtePoqAmUu3XODVIH9Io7): Download relevant experimental data.
+
 - Example dataset:
   ```matlab
   data = load('example_data.mat');
   ```
 
-### Team Resources
-- [Google Drive Folder](https://drive.google.com/drive/folders/19-npik6O2sBKtePoqAmUu3XODVIH9Io7): Download relevant experimental data.
-- Contact the project lead for specific datasets not available in the folder.
-
-### Example Subjects to Start
-- sub-001
-- sub-002
-- sub-003
+### Example Datasets to Start
+- Motion direction discrimination
+- Simultaneity judgment
+- Word categorization
 
 ## Steps for Each Analysis
 ### 1. Data Preparation
