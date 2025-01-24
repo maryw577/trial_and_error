@@ -1,51 +1,116 @@
 # Trial and Error: A Trial History and Bayesian Approach
 
-_Our goal_ to build data pipelines for three separate analyses:
+## Overview
+Welcome to the "Trial and Error" repository! Our goal is to build data pipelines for analyzing trial history effects in psychophysical tasks using Bayesian approaches. This project is structured into three key analyses:
 
-### **1. Individual Session Analysis**
-Create a trial history pipeline to process and analyze data from single experimental sessions.
+1. **Individual Session Analysis**: Analyze trial history data from single experimental sessions.
+2. **Comparing Conditions Within Subjects**: Compare performance and decision-making patterns across experimental conditions for individual participants.
+3. **Group-Level Analysis**: Aggregate and analyze data across multiple participants to identify consistent patterns and group-level trends.
 
-### **2. Comparing Conditions Within Subjects**
-Design a trial history pipeline to compare performance and decision-making patterns across different experimental conditions for the same participant.
+## Table of Contents
+- [Onboarding Documentation](#onboarding-documentation)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Data Access](#data-access)
+- [Steps for Each Analysis](#steps-for-each-analysis)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
+- [License](#license)
 
-### **3. Group-Level Analysis**
-Construct a pipeline to aggregate and analyze data across multiple participants, identifying consistent patterns and group-level trends in trial history effects.
+## Onboarding Documentation
+### Get Started
 
----
+1. **Join our Discord channel**: Stay updated and collaborate with the team.
+2. **Download MATLAB**: [MATLAB Download](https://www.mathworks.com/downloads/) (Free with VU email address).
+3. **Access the onboarding Google Drive folder**: [Google Drive Folder](https://drive.google.com/drive/folders/19-npik6O2sBKtePoqAmUu3XODVIH9Io7) for background information and documents.
 
-Onboarding- what you will need!
+### Useful Resources
+- [MATLAB Basics](https://www.mathworks.com/help/matlab/)
+- [Bayesian Modeling Techniques](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3005353/)
+- [Awesome Visualization](https://github.com/alpers/awesome-data-visualization)
 
-### **1. Join our Discord channel!!!**
-Construct a pipeline to aggregate and analyze data across multiple participants, identifying consistent patterns and group-level trends in trial history effects.
+## Prerequisites
+Before installing and using the repository, ensure you have the following:
 
-### **2. Download MATLAB**
-Download the latest version of [MATLAB](https://www.mathworks.com/downloads/). You get a free version of MATLAB by signing up with your VU email address!
+- MATLAB (latest version)
+- Access to the project’s data and resources (details below)
 
-### **3. Access our onboarding Google Drive folder**
-We will be periodically adding documents to our [Google Drive folder](https://drive.google.com/drive/folders/19-npik6O2sBKtePoqAmUu3XODVIH9Io7) for background information on the topic
+## Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/username/trial-and-error.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd trial-and-error
+   ```
+3. Open MATLAB and add the project directory to your path:
+   ```matlab
+   addpath(genpath('path_to_trial_and_error'))
+   savepath
+   ```
 
----
-## **Steps for Each Analysis**
+## Data Access
+Data for the project can be accessed from the following sources:
 
-### **1. Data Preparation**
-- Write scripts to validate input data.
-- Test preprocessing scripts on example datasets to handle edge cases and ensure compatibility.
+### Public Datasets
+- Example dataset:
+  ```matlab
+  data = load('example_data.mat');
+  ```
 
-### **2. Visualization**
-- Implement simple and complex plots such as histograms, scatterplots, and reusable visualization templates.
-- Design plots to clearly illustrate trial history effects and patterns.
+### Team Resources
+- [Google Drive Folder](https://drive.google.com/drive/folders/19-npik6O2sBKtePoqAmUu3XODVIH9Io7): Download relevant experimental data.
+- Contact the project lead for specific datasets not available in the folder.
 
-### **3. Documentation and Building**
-- Write clear and concise instructions and explanations for users.
-- Build and maintain the README file for the project.
-- Propose future features and extensions to enhance the pipeline.
+### Example Subjects to Start
+- sub-001
+- sub-002
+- sub-003
 
-### **4. Testing and Debugging**
+## Steps for Each Analysis
+### 1. Data Preparation
+- Validate and preprocess input data.
+- Test preprocessing scripts on example datasets to handle edge cases.
+
+### 2. Visualization
+- Create histograms, scatterplots, and advanced visualizations to illustrate trial history effects.
+- Develop reusable visualization templates.
+
+### 3. Documentation and Building
+- Write clear instructions and explanations for users.
+- Propose features to enhance the pipeline.
+
+### 4. Testing and Debugging
 - Test the pipeline on multiple datasets to ensure robustness.
-- Identify and resolve possible bugs or unexpected behaviors.
+- Resolve bugs and unexpected behaviors.
 
-### **5. Bayesian Modeling**
-- Research Bayesian modeling techniques relevant to trial history analysis.
-- Implement simplified versions, defining priors and likelihoods for specific tasks.
+### 5. Bayesian Modeling
+- Research and implement Bayesian modeling techniques.
+- Define priors and likelihoods for specific tasks.
 - Ensure results are interpretable and provide insights into decision-making patterns.
+
+## Project Structure
+```plaintext
+trial-and-error/
+├── src/               # Source code
+├── data/              # Data files
+├── scripts/           # Utility scripts
+└── docs/              # Documentation
+```
+
+## Contributing
+We welcome contributions to improve the project. To contribute:
+
+1. Fork the repository.
+2. Create a feature branch.
+3. Commit your changes.
+4. Submit a pull request.
+5. Follow the team’s coding standards.
+
+## License
+This project is licensed under [license type]. All data used in this project adhere to the original data-sharing agreements of their respective sources.
+
+---
+Thank you for contributing to "Trial and Error"! Let’s build insightful pipelines together.
 
