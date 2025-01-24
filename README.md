@@ -92,7 +92,6 @@ Data for the project can be accessed from the following sources:
 ## Project Structure
 ```plaintext
 trial-and-error/
-├── src/               # Source code
 ├── data/              # Data files
 ├── scripts/           # Utility scripts
 └── docs/              # Documentation
