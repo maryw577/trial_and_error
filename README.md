@@ -27,7 +27,7 @@ Welcome to the "Trial and Error" repository! Our goal is to build data pipelines
 ### Useful Resources
 - [MATLAB Basics](https://www.mathworks.com/help/matlab/)
 - [Trial History and Bayesian Modeling Background](https://drive.google.com/drive/folders/19-npik6O2sBKtePoqAmUu3XODVIH9Io7)
-- [Awesome Visualization](https://github.com/povilaskarvelis/DataViz)
+- [Awesome Data Visualization](https://github.com/povilaskarvelis/DataViz)
 
 ## Prerequisites
 Before installing and using the repository, ensure you have the following:
