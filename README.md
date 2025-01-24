@@ -22,7 +22,7 @@ Construct a pipeline to aggregate and analyze data across multiple participants,
 Download the latest version of [MATLAB](https://www.mathworks.com/downloads/). You get a free version of MATLAB by signing up with your VU email address!
 
 ### **3. Access our onboarding Google Drive folder**
-We will be periodically adding documents to our Google Drive folder for background information on the topic
+We will be periodically adding documents to our [Google Drive folder](https://drive.google.com/drive/folders/19-npik6O2sBKtePoqAmUu3XODVIH9Io7) for background information on the topic
 
 ---
 ## **Steps for Each Analysis**
