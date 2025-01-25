@@ -3,7 +3,7 @@ function DDM(processedData)
     % Initialize the drift variable
     numTrials = height(processedData);
     drift = zeros(1, numTrials);
-    initial_state = 0; % Start drift at zero
+    initial_state = 0;
     drift(1) = initial_state;
     
     % Normalize Response for drift calculations
@@ -62,23 +62,26 @@ function DDM(processedData)
         % Determine marker color and shape based on original Response
         if processedData.Response(t) == 2 % Right response
             marker_color = [0, 0.5, 1]; % Blue for right
+            if processedData.PrevOutcome(t) == 1 % Correct
+                marker = 'o'; % Circle for correct
+            else
+                marker = '^'; % Triangle for incorrect
+            end
         elseif processedData.Response(t) == 1 % Left response
             marker_color = [1, 0.5, 0.5]; % Red for left
+            if processedData.PrevOutcome(t) == 1 % Correct
+                marker = 'o'; % Circle for correct
+            else
+                marker = '^'; % Triangle for incorrect
+            end
         else
             continue; % Skip if response is invalid
-        end
-        
-        if processedData.PrevOutcome(t) == 1 % Correct
-            marker = 'o'; % Circle for correct
-        elseif processedData.PrevOutcome(t) == 0 % Incorrect
-            marker = '^'; % Triangle for incorrect
-        else
-            continue; % Skip if outcome is NaN or invalid
         end
         
         % Plot marker
         plot(t, drift(t), marker, 'MarkerSize', 8, 'MarkerFaceColor', marker_color, 'MarkerEdgeColor', 'k');
     end
+
     
     % Add horizontal dashed line for the initial state
     yline(0, '--k', 'LineWidth', 1);
@@ -91,107 +94,24 @@ function DDM(processedData)
     ylim([-1.1, 1.1]); % Adjust y-axis for normalized drift
     grid on;
     
-    % Add legend
-    legend({'Drift State', 'Correct R', 'Correct L', 'Incorrect R', 'Incorrect L'}, 'Location', 'best');
+    % Add dummy plots for legend entries
+    h1 = plot(nan, nan, 'o', 'MarkerSize', 8, 'MarkerFaceColor', [0, 0.5, 1], 'MarkerEdgeColor', 'k'); % Correct Right
+    h2 = plot(nan, nan, 'o', 'MarkerSize', 8, 'MarkerFaceColor', [1, 0.5, 0.5], 'MarkerEdgeColor', 'k'); % Correct Left
+    h3 = plot(nan, nan, '^', 'MarkerSize', 8, 'MarkerFaceColor', [0, 0.5, 1], 'MarkerEdgeColor', 'k'); % Incorrect Right
+    h4 = plot(nan, nan, '^', 'MarkerSize', 8, 'MarkerFaceColor', [1, 0.5, 0.5], 'MarkerEdgeColor', 'k'); % Incorrect Left
     
+    % Add legend
+    legend([h1, h2, h3, h4], ...
+           {'Correct Right (Blue Circle)', ...
+            'Correct Left (Red Circle)', ...
+            'Incorrect Right (Blue Triangle)', ...
+            'Incorrect Left (Red Triangle)'}, ...
+           'Location', 'best');
+
     % Display weights for verification
     disp(['Correct Left Weight: ', num2str(correctLeftWeight)]);
     disp(['Correct Right Weight: ', num2str(correctRightWeight)]);
     disp(['Incorrect Left Weight: ', num2str(incorrectLeftWeight)]);
     disp(['Incorrect Right Weight: ', num2str(incorrectRightWeight)]);
     
-    
-    % Prepare data for DDM fitting
-    RT = processedData.RT; % Response times
-    Outcome = processedData.PrevOutcome; % 1 = Correct, 0 = Incorrect
-    StimulusDirection = normalizedResponse; % Drift direction (-1 = Left, 1 = Right)
-    
-    % Exclude NaN entries
-    validIndices = ~isnan(RT) & ~isnan(Outcome) & ~isnan(StimulusDirection);
-    RT = RT(validIndices);
-    Outcome = Outcome(validIndices);
-    StimulusDirection = StimulusDirection(validIndices);
-    
-    % Define DDM likelihood function
-    ddm_likelihood = @(params) -sum(log( ...
-        ddm_pdf(RT, Outcome, StimulusDirection, params(1), params(2), params(3))));
-    
-    % Initial guesses for [drift rate (v), boundary separation (a), non-decision time (t0)]
-    initialParams = [0.1, 1, 0.2]; 
-    
-    % Parameter bounds
-    lb = [0, 0.1, 0.1]; % Lower bounds
-    ub = [Inf, 5, 1]; % Upper bounds
-    
-    % Optimize parameters using fmincon
-    options = optimoptions('fmincon', 'Display', 'iter', 'Algorithm', 'interior-point');
-    [fitParams, negLogLikelihood] = fmincon(ddm_likelihood, initialParams, [], [], [], [], lb, ub, [], options);
-    
-    % Display fitted parameters
-    disp('Fitted Parameters:');
-    disp(['Drift Rate (v): ', num2str(fitParams(1))]);
-    disp(['Boundary Separation (a): ', num2str(fitParams(2))]);
-    disp(['Non-Decision Time (t0): ', num2str(fitParams(3))]);
-    
-    
-    %% Step 2: Fit Drift-Diffusion Model (DDM)
-    
-    % Prepare data for DDM fitting
-    RT = processedData.RT; % Response times
-    Outcome = processedData.PrevOutcome; % 1 = Correct, 0 = Incorrect
-    normalizedResponse = processedData.Response; % Copy original response
-    normalizedResponse(normalizedResponse == 2) = 1;  % Right -> +1
-    normalizedResponse(normalizedResponse == 1) = -1; % Left -> -1
-    StimulusDirection = normalizedResponse; % Drift direction (-1 = Left, 1 = Right)
-    
-    % Exclude NaN entries
-    validIndices = ~isnan(RT) & ~isnan(Outcome) & ~isnan(StimulusDirection);
-    RT = RT(validIndices);
-    Outcome = Outcome(validIndices);
-    StimulusDirection = StimulusDirection(validIndices);
-    
-    % Define DDM likelihood function
-    ddm_likelihood = @(params) -sum(log( ...
-        ddm_pdf(RT, Outcome, StimulusDirection, params(1), params(2), params(3))));
-    
-    % Initial guesses for [drift rate (v), boundary separation (a), non-decision time (t0)]
-    initialParams = [0.1, 1, 0.2]; 
-    
-    % Parameter bounds
-    lb = [0, 0.1, 0.1]; % Lower bounds
-    ub = [Inf, 5, 1]; % Upper bounds
-    
-    % Optimize parameters using fmincon
-    options = optimoptions('fmincon', 'Display', 'iter', 'Algorithm', 'interior-point');
-    [fitParams, negLogLikelihood] = fmincon(ddm_likelihood, initialParams, [], [], [], [], lb, ub, [], options);
-    
-    % Display fitted parameters
-    disp('Fitted Parameters:');
-    disp(['Drift Rate (v): ', num2str(fitParams(1))]);
-    disp(['Boundary Separation (a): ', num2str(fitParams(2))]);
-    disp(['Non-Decision Time (t0): ', num2str(fitParams(3))]);
-    
-    %% Step 3: Visualize Fitted Parameters (Optional)
-    % Simulate decision-making using fitted parameters and compare with observed data.
-    % Example visualization can be added here.
-    
-    %% Helper Function: DDM PDF
-    function p = ddm_pdf(RT, Outcome, StimulusDirection, v, a, t0)
-        % Compute the DDM probability density for each trial
-        % Inputs:
-        % RT - Response times
-        % Outcome - Correct (1) or Incorrect (0)
-        % StimulusDirection - Drift bias (-1 or +1)
-        % v - Drift rate
-        % a - Boundary separation
-        % t0 - Non-decision time
-    
-        % Adjust RT for non-decision time
-        RT = max(RT - t0, eps);
-    
-        % Compute drift-diffusion PDF (approximation)
-        drift = StimulusDirection .* v;
-        evidenceTerm = -(drift .* a) ./ RT; % Drift influence on boundary crossing
-        p = abs(drift) .* exp(evidenceTerm) ./ (RT .^ 1.5); % Drift-diffusion likelihood
-    end
 end
