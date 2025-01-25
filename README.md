@@ -33,7 +33,7 @@ Welcome to the "Trial and Error" repository! Our goal is to build data pipelines
 Before installing and using the repository, ensure you have the following:
 
 - MATLAB (latest version)
-- MATLAB Toolboxes to Install: Signal Processing, Statistics and Machine Learning, Curve Fitting
+- MATLAB Toolboxes to Install: Signal Processing, Statistics and Machine Learning, Curve Fitting, Optimization
 - Access to the project’s data and resources (details below)
 
 ## Installation via VSCode
