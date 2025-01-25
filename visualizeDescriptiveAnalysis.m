@@ -17,6 +17,33 @@ function visualizeDescriptiveAnalysis(data)
     title('Sequential Effects on Accuracy');
     ylim([0 1.0]);
 
+     % Plot
+    dabarplot(sequentialAcc.mean_Correct, 'groups', {'Correct Prior', 'Incorrect Prior'});
+    beautifyplot;
+    unmatlabifyplot(0);
+    %bar(sequentialAcc.PrevOutcome, sequentialAcc.mean_Correct);
+    xlabel('Previous Outcome'); ylabel('Proportion Correct');
+    title('Sequential Effects on Accuracy');
+   
+
+    % Assuming your table is called `dataTable` and is created as described
+    % Separate RTs based on prevResponse
+    RT_prev1 = data.RT(data.PrevOutcome == 0); % RTs where PrevResponse == 1
+    RT_prev2 = data.RT(data.PrevOutcome == 1); % RTs where PrevResponse == 2
+    
+    % Align lengths by padding shorter column with NaNs
+    maxLen = max(length(RT_prev1), length(RT_prev2));
+    RT_prev1 = [RT_prev1; NaN(maxLen - length(RT_prev1), 1)];
+    RT_prev2 = [RT_prev2; NaN(maxLen - length(RT_prev2), 1)];
+    
+    % Create a new table with the separated RT columns
+    separatedRTs = table(RT_prev1, RT_prev2, 'VariableNames', {'RT_Prev1', 'RT_Prev2'});
+    separatedRTs = table2array(separatedRTs);
+    figure;
+    dabarplot(separatedRTs);
+    beautifyplot;
+    unmatlabifyplot(0);
+
     % Plot RT
     figure;
     sequentialRT = groupsummary(data, {'PrevOutcome'}, 'mean', 'RT');
