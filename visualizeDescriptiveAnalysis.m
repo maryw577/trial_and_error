@@ -10,15 +10,21 @@ function visualizeDescriptiveAnalysis(data)
     % Filter out rows with missing values
     data = rmmissing(data);
 
-    % Group and summarize
+    % Plot Accuracy
     sequentialAcc = groupsummary(data, {'PrevOutcome'}, 'mean', 'Correct');
-
-    % Plot
     bar(sequentialAcc.PrevOutcome, sequentialAcc.mean_Correct);
     xlabel('Previous Outcome'); ylabel('Proportion Correct');
     title('Sequential Effects on Accuracy');
-   
-    % 2. RT as a function of SNR and trial history
+    ylim([0 1.0]);
+
+    % Plot RT
+    figure;
+    sequentialRT = groupsummary(data, {'PrevOutcome'}, 'mean', 'RT');
+    bar(sequentialRT.PrevOutcome, sequentialRT.mean_RT);
+    xlabel('Previous Outcome'); ylabel('Mean Reaction Time (ms)');
+    title('Sequential Effects on Reaction Times');
+
+    % Plot RT as a function of SNR and trial history
     figure;
     scatter(data.SNR, data.RT, 20, data.PrevOutcome, 'filled');
     xlabel('SNR'); ylabel('Reaction Time (s)');
