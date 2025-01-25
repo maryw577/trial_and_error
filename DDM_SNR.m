@@ -57,7 +57,7 @@ function DDM_SNR(processedData)
         end
 
         % Plot marker
-        plot(t, drift(t), marker, 'MarkerSize', 12, 'MarkerFaceColor', marker_color, 'MarkerEdgeColor', 'k');
+        plot(t, drift(t), marker, 'MarkerSize', 8, 'MarkerFaceColor', marker_color, 'MarkerEdgeColor', 'k');
     end
 
     % Add horizontal dashed lines for boundaries

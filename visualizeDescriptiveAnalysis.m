@@ -1,7 +1,7 @@
 function visualizeDescriptiveAnalysis(data)
     % Ensure table has all necessary variables
-    if ~all(ismember({'PrevOutcome', 'Response', 'Stimulus'}, data.Properties.VariableNames))
-        error('Table does not contain required variables: PrevOutcome, Response, Stimulus.');
+    if ~all(ismember({'PrevOutcome', 'Response', 'Stimulus', 'SNR', 'RT'}, data.Properties.VariableNames))
+        error('Table does not contain required variables: PrevOutcome, Response, Stimulus, SNR, RT.');
     end
 
     % Add computed variable for correctness
@@ -10,51 +10,43 @@ function visualizeDescriptiveAnalysis(data)
     % Filter out rows with missing values
     data = rmmissing(data);
 
+    % Define color scheme
+    color1 = [230, 159, 0] / 255; % Orange
+    color2 = [0, 114, 178] / 255; % Blue
+
     % Plot Accuracy
+    figure;
     sequentialAcc = groupsummary(data, {'PrevOutcome'}, 'mean', 'Correct');
-    bar(sequentialAcc.PrevOutcome, sequentialAcc.mean_Correct);
+    bar(sequentialAcc.PrevOutcome, sequentialAcc.mean_Correct, 'FaceColor', color1);
     xlabel('Previous Outcome'); ylabel('Proportion Correct');
     title('Sequential Effects on Accuracy');
     ylim([0 1.0]);
 
-     % Plot
-    dabarplot(sequentialAcc.mean_Correct, 'groups', {'Correct Prior', 'Incorrect Prior'});
-    beautifyplot;
-    unmatlabifyplot(0);
-    %bar(sequentialAcc.PrevOutcome, sequentialAcc.mean_Correct);
-    xlabel('Previous Outcome'); ylabel('Proportion Correct');
-    title('Sequential Effects on Accuracy');
-   
-
-    % Assuming your table is called `dataTable` and is created as described
-    % Separate RTs based on prevResponse
-    RT_prev1 = data.RT(data.PrevOutcome == 0); % RTs where PrevResponse == 1
-    RT_prev2 = data.RT(data.PrevOutcome == 1); % RTs where PrevResponse == 2
-    
-    % Align lengths by padding shorter column with NaNs
-    maxLen = max(length(RT_prev1), length(RT_prev2));
-    RT_prev1 = [RT_prev1; NaN(maxLen - length(RT_prev1), 1)];
-    RT_prev2 = [RT_prev2; NaN(maxLen - length(RT_prev2), 1)];
-    
-    % Create a new table with the separated RT columns
-    separatedRTs = table(RT_prev1, RT_prev2, 'VariableNames', {'RT_Prev1', 'RT_Prev2'});
-    separatedRTs = table2array(separatedRTs);
-    figure;
-    dabarplot(separatedRTs);
-    beautifyplot;
-    unmatlabifyplot(0);
-
     % Plot RT
     figure;
     sequentialRT = groupsummary(data, {'PrevOutcome'}, 'mean', 'RT');
-    bar(sequentialRT.PrevOutcome, sequentialRT.mean_RT);
+    bar(sequentialRT.PrevOutcome, sequentialRT.mean_RT, 'FaceColor', color2);
     xlabel('Previous Outcome'); ylabel('Mean Reaction Time (ms)');
     title('Sequential Effects on Reaction Times');
 
     % Plot RT as a function of SNR and trial history
     figure;
-    scatter(data.SNR, data.RT, 20, data.PrevOutcome, 'filled');
+    uniquePrevOutcomes = unique(data.PrevOutcome); % Get unique PrevOutcome values
+    hold on;
+    for i = 1:length(uniquePrevOutcomes)
+        % Filter data by PrevOutcome
+        outcome = uniquePrevOutcomes(i);
+        subset = data(data.PrevOutcome == outcome, :);
+
+        % Scatter plot for each outcome
+        if outcome == 1
+            scatter(subset.SNR, subset.RT, 40, 'filled', 'MarkerFaceColor', color1);
+        else
+            scatter(subset.SNR, subset.RT, 40, 'filled', 'MarkerFaceColor', color2);
+        end
+    end
+    hold off;
     xlabel('SNR'); ylabel('Reaction Time (s)');
     title('Reaction Time by SNR and Trial History');
-    colorbar; colormap cool;
+    legend({'Correct Previous Trial', 'Incorrect Previous Trial'}, 'Location', 'best');
 end

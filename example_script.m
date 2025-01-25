@@ -1,15 +1,18 @@
 %% Sample Script
 close all; clear; clc;
 
-load('data/RDKHoop_stairVis_18_26_01_18.mat')
+load('data/Motion2/Motion2_VisOnly.mat')
 rawData = data_output;
 
 processedData = preprocessData(rawData);
 processedData = processedData(processedData.Stimulus ~= 0, :);
 processedData = processedData(~isnan(processedData.RT), :);
 
-%visualizeDescriptiveAnalysis(processedData);
-%DDM_SNR(processedData);
+% Make descriptive plots
+visualizeDescriptiveAnalysis(processedData);
+
+% Make DDM plots
+DDM_SNR(processedData);
 
 % Initialize the drift variable
 numTrials = height(processedData);
