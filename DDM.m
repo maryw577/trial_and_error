@@ -23,29 +23,20 @@ function DDM(processedData)
     incorrectLeftWeight = 1 / (incorrectLeftCount / numTrials);
     incorrectRightWeight = 1 / (incorrectRightCount / numTrials);
     
-    % Loop through trials and calculate drift
+% Loop through trials and calculate drift
     for t = 2:numTrials
         if ~isnan(normalizedResponse(t)) && ~isnan(processedData.PrevOutcome(t))
             % Correct responses
-            if processedData.PrevOutcome(t) == 1
-                if processedData.Response(t) == 1 % Left response
-                    drift(t) = drift(t-1) + correctLeftWeight * normalizedResponse(t);
-                elseif processedData.Response(t) == 2 % Right response
-                    drift(t) = drift(t-1) + correctRightWeight * normalizedResponse(t);
-                end
-            % Incorrect responses
-            elseif processedData.PrevOutcome(t) == 0
-                if processedData.Response(t) == 1 % Left response
-                    drift(t) = drift(t-1) - incorrectLeftWeight * normalizedResponse(t);
-                elseif processedData.Response(t) == 2 % Right response
-                    drift(t) = drift(t-1) - incorrectRightWeight * normalizedResponse(t);
-                end
+            if processedData.PrevOutcome(t) == 1 % Correct
+                drift(t) = drift(t-1) + 1; % Always add for correct
+            elseif processedData.PrevOutcome(t) == 0 % Incorrect
+                drift(t) = drift(t-1) - 1; % Always subtract for incorrect
             end
         else
             drift(t) = drift(t-1); % No change if PrevOutcome or Response is NaN
         end
     
-        % Centralize drift
+        % Centralize drift (optional)
         drift(t) = drift(t) - 0.01 * drift(t-1);
     end
     
