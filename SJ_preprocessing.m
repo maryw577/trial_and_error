@@ -40,6 +40,3 @@ rawData = [stimulus, SNR, response, RT];
 % Run preprocessing code
 processedData = preprocessData(rawData);
 disp(processedData);
-
-visualizeDescriptiveAnalysis(processedData);
-DDM(processedData);
