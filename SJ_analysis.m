@@ -43,6 +43,3 @@ disp(processedData);
 
 visualizeDescriptiveAnalysis(processedData);
 DDM(processedData);
-
-% Test Function
-%fitBayesianModel(processedData);
