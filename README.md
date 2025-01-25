@@ -43,7 +43,7 @@ Before installing and using the repository, ensure you have the following:
    ```
 2. Navigate to the project directory:
    ```bash
-   cd trial-and-error
+   cd trial_and_error
    ```
 3. Open MATLAB and add the project directory to your path:
    ```matlab
