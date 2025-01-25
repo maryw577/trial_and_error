@@ -1,8 +1,6 @@
 %% Sample Script
 
-cd('/Users/a.tiesman/Documents/Research/Human_AV_Motion/data')
-load('RDKHoop_stairVis_17_26_01_22.mat')
-cd('/Users/a.tiesman/Documents/Research/trial_and_error')
+load('Motion1_VisOnly.mat')
 rawData = data_output;
 
 processedData = preprocessData(rawData);
