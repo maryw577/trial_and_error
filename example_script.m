@@ -1,7 +1,7 @@
 %% Sample Script
 close all; clear; clc;
 
-load('data/Motion2/Motion2_VisOnly.mat')
+load('data/Motion1/Motion1_VisOnly.mat')
 rawData = data_output;
 
 processedData = preprocessData(rawData);
